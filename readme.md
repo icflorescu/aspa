@@ -121,11 +121,15 @@ III. **Run the aspa utility in the assets root folder** to build and deploy.
         /work/server/public/favicon.ico
         /work/server/aspa.json
 
+## Notes
+
+ASPA was written almost entirely in [IcedCoffeeScript](http://maxtaco.github.com/coffee-script/), a superset of CoffeeScript adding `await` and `defer` keywords to simply and powerfully streamline asynchronous control flow.
+
 ## License
 
 (The MIT License)
 
-Copyright (c) 2010 Ionut-Cristian Florescu &lt;ionut.florescu@gmail.com&gt;
+Copyright (c) 2013 Ionut-Cristian Florescu &lt;ionut.florescu@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
