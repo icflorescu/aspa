@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+	path    = require('path'),
+	aspa    = require('../index'),
+
+	validActions = ['cleanup', 'build', 'watch'],
+	action,
+
+	actionCallback = function(err) {
+		console.log(err ? err : 'Done.');
+	};
+
+program
+	.version('0.1.0')
+	.usage('-r <root> [-p <public>] [-m <mode>] [cleanup|build|watch]')
+	.option('-r, --root <root>',     'Root folder to write output map to')
+	.option('-p, --public <public>', 'Public web folder, defaults to <root>/public')
+	.option('-m, --mode <mode>',     'Build mode, [development] or production', 'development')
+	.parse(process.argv);
+
+if (!program.root) {
+	console.log('Please specify root folder.');
+	console.log('Check aspa --help for more info.');
+} else {
+	program.public = program.public || path.join(program.root, 'public');
+
+	action = program.args.length ? program.args[0] : 'build';
+
+	if (validActions.indexOf(action) == -1) {
+		console.log('Valid actions are: cleanup, build or watch.');
+		console.log('Check aspa --help for more info.');
+	} else {
+		aspa[action](program, actionCallback);
+	}
+}
+

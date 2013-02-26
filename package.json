@@ -1,0 +1,32 @@
+{
+	"name": "aspa",
+	"description": "Web asset packager",
+	"version": "0.1.0",
+	"author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
+	"keywords": [
+		"jade", "css", "stylesheets",
+		"coffee-script", "iced-coffee-script", "scripts",
+		"assets", "compressor", "optimizer", "packager", "builder"
+	],
+	"repository": "git://github.com/icflorescu/aspa",
+	"engines": {
+		"node": ">=0.8"
+	},
+ 	"bin" : {
+		"aspa" : "./bin/aspa"
+	},
+	"dependencies": {
+		"commander": "*",
+		"js-yaml": "*",
+		"rimraf": "*",
+		"mkdirp": "*",
+		"watchr": "*",
+		"coffee-script": "*",
+		"iced-coffee-script": "*",
+		"stylus": "*",
+		"nib": "*",
+		"jade": "*",
+		"uglify-js": "*",
+		"csso": "*"
+	}
+}
