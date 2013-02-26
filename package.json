@@ -1,7 +1,7 @@
 {
 	"name": "aspa",
 	"description": "Web asset packager",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
 	"keywords": [
 		"jade", "css", "stylesheets",
