@@ -3,6 +3,8 @@ ASPA is a simple web application asset packager for Node.js.
 
 Make sure to check [ASPA-Express](https://github.com/icflorescu/aspa-express) for using packaged assets in [Express](http://expressjs.com) webapps.
 
+![ASPA](https://raw.github.com/icflorescu/aspa/master/aspa.png)
+
 ## Features
 
 * Map-file based (asset map uses a subset of [YAML](http://en.wikipedia.org/wiki/YAML) syntax);
