@@ -68,7 +68,7 @@ II. **Create aspa.yml map file** in the root of the asset folder (`/work/client`
    * .js and .css files are gzipped automatically in production mode, but other "compressible" assets must be explicitely marked with a `compress: true` option;
    * `raw: true` means don't fingerprint this file in production.
 
-III. **Run the aspa utility in the assets root folder** to build and deploy them to the public folder.
+III. **Run the aspa utility in the assets root folder** to build and deploy.
 
    **During development**:
    
