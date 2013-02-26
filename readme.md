@@ -1,13 +1,21 @@
 # ASPA
 ASPA is a simple web application asset packager for Node.js.
 
-Make sure to check [ASPA-Express](https://github.com/icflorescu/aspa-express) for using packaged assets in [Express.js](http://expressjs.com)-based webapps.
+Make sure to check [ASPA-Express](https://github.com/icflorescu/aspa-express) for using packaged assets in [Express](http://expressjs.com) webapps.
+
+## Features
+
+* Map-file based (asset map uses a subset of [YAML](http://en.wikipedia.org/wiki/YAML) syntax);
+* Accepts .css and .styl input for stylesheets;
+* Accepts .js, .coffee and .iced ([IcedCoffeeScript](http://maxtaco.github.com/coffee-script/)) input for scripts;
+* Concatenates multiple script/style source files per output file;
+* [Fingerprints](http://guides.rubyonrails.org/asset_pipeline.html#what-is-fingerprinting-and-why-should-i-care) and gzips assets in production mode.
 
 ## Usage
 
 I. **Keep your asset files in a separate folder** outside your main web application directory.
 
-   **Warning**: *Don't put anything directly in the public web folder, as it will be overwritten during the build process!*
+   **Warning: _Don't put anything directly in the public web folder, as it will be overwritten during the build process!_**
    
    Sample folder structure:
    
@@ -50,13 +58,14 @@ II. **Create aspa.yml map file** in the root of the asset folder (`/work/client`
     images/sprite@2x.png                : ~
     favicon.ico                         : { raw: true }
 
-   A few observations:
+   **A few observations**:
+   
    * `bare: true` means compile that file without the top-level function safety wrapper, see more about this [here](http://coffeescript.org/#usage);
    * .jade templates are transformed to JavaScript templating functions in JST namespace (i.e. `templates/item.jade` compiles to `JST['templates/item']` function);
    * `nib: true` refers to [this](http://visionmedia.github.com/nib/);
    * `skip: true` means don't include that file in the compiled output, just watch it for changes (in the example above, item.styl is dynamically imported into main.styl, so you don't want to include it again but you want to trigger a rebuild when its content changes;
    * `fonts/fontello.eot: { from: lib/fontello/font }` means copy `/client/lib/fontello/font/fontello.eot` to `/server/public/fonts/fontello.eot`;
-   * .js and .css files are compressed automatically in production mode, but other "compressible" assets must be explicitely marked with a `compress: true` option;
+   * .js and .css files are gzipped automatically in production mode, but other "compressible" assets must be explicitely marked with a `compress: true` option;
    * `raw: true` means don't fingerprint this file in production.
 
 III. **Run the aspa utility in the assets root folder** to build and deploy them to the public folder.
@@ -72,6 +81,9 @@ III. **Run the aspa utility in the assets root folder** to build and deploy them
    `aspa -r ../server cleanup`  
    Clean-up `../server/public` and `../server/aspa.json`.
 
+   `aspa -r ../server watch`  
+   Watch the asset folder and rebuild automatically when a source file changes. Use this during development.
+
    **For production**:
    
    `aspa -r ../server -m production`  
@@ -79,9 +91,33 @@ III. **Run the aspa utility in the assets root folder** to build and deploy them
    
    **Note**: Building for production also:
    * creates an output map named `../server/aspa.json`;
-   * fingerprints generated asset packages for cache-busting (by prefixing them with a UNIX-timestamp string), except the ones marked with `raw: true` in aspa.yml;
+   * fingerprints generated asset packages (by prefixing them with a UNIX-timestamp string), except the ones marked with `raw: true` in aspa.yml;
    * compresses .js, .css and any other assets marked with `compress: true` in aspa.yml.
 
+  Running `aspa -r ../server` in the above context will generate the following output:
+    
+        /work/server/public/js/main.js
+        /work/server/public/css/main.js
+        /work/server/public/fonts/fontello.eot
+        /work/server/public/fonts/fontello.svg
+        /work/server/public/fonts/fontello.ttf
+        /work/server/public/fonts/fontello.woff
+        /work/server/public/images/sprite.png
+        /work/server/public/images/sprite@2x.png
+        /work/server/public/favicon.ico
+
+  ...while running `aspa -r ../server -m production` could produce this:
+    
+        /work/server/public/js/1361917868718.main.js.gz
+        /work/server/public/css/1361917868718.main.js.gz
+        /work/server/public/fonts/1361917868718.fontello.eot
+        /work/server/public/fonts/1361917868718.fontello.svg.gz
+        /work/server/public/fonts/1361917868718.fontello.ttf.gz
+        /work/server/public/fonts/1361917868718.fontello.woff
+        /work/server/public/images/1361917868718.sprite.png
+        /work/server/public/images/1361917868718.sprite@2x.png
+        /work/server/public/favicon.ico
+        /work/server/aspa.json
 
 ## License
 
