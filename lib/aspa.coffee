@@ -126,7 +126,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
     switch sourceExt
       when '.styl'
         compiler = stylus(content)
-          .set('filename', asset)
+          .set('filename', source)
           .set('compress', no)
           .set('debug', yes)
         compiler.use(nib()).import('nib') if options?.nib
