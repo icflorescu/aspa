@@ -111,7 +111,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
 
   contents = ''
 
-  for own source, options of sources
+  for own source, options of sources when options?.skip isnt on
 
     # Add a comment-separator before each source
     contents += '\n' unless contents is ''
