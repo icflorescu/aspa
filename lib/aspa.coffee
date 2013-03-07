@@ -166,7 +166,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
 
   # Write contents
   await fs.writeFile destination, contents, defer err
-  console.log "#{asset} #{operation} to #{destination}." unless err
+  console.log "Input source files #{operation} to #{destination}." unless err
   callback err
 
 ### =============================================================================================== Exported methods ###

@@ -12,7 +12,7 @@ var program = require('commander'),
 	};
 
 program
-	.version('0.1.4')
+	.version('0.1.5')
 	.usage('-r <root> [-p <public>] [-m <mode>] [cleanup|build|watch]')
 	.option('-r, --root <root>',     'Root folder to write output map to')
 	.option('-p, --public <public>', 'Public web folder, defaults to <root>/public')
