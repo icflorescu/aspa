@@ -1,6 +1,11 @@
 # ASPA
 ASPA is a simple opinionated web application asset packager for Node.js.  
 
+Make sure to check ASPA-Express ( [github](https://github.com/icflorescu/aspa-express) | [npm](https://npmjs.org/package/aspa-express) ) for using packaged assets with [Express](http://expressjs.com).
+
+![ASPA](https://raw.github.com/icflorescu/aspa/master/aspa.png)
+
+## Why?
 There are certainly a number of other similar tools available in the Node.js ecosystem. However, in my opinion:
 * some of them are a bit too complex and complicated (and thus 'overkill' for small projects);
 * some will perform the necessary asset file processing on application start-up, which isn't always the best approach when you're deploying in the cloud;
@@ -9,10 +14,6 @@ There are certainly a number of other similar tools available in the Node.js eco
 * not all of them are processing the CSS files to correctly rewrite the URLs pointing to other fingerprinted assets.
 
 While certainly not aiming to be a silver bullet, ASPA tries to address the above issues by providing a little a command-line utility which you can run during development or before deployment. The configuration is centralized in a single YML map file (aspa.yml) residing in the root of your folder.
-
-Make sure to check ASPA-Express ( [github](https://github.com/icflorescu/aspa-express) | [npm](https://npmjs.org/package/aspa-express) ) for using packaged assets with [Express](http://expressjs.com).
-
-![ASPA](https://raw.github.com/icflorescu/aspa/master/aspa.png)
 
 ## Features
 
