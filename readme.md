@@ -7,21 +7,22 @@ Make sure to check ASPA-Express ( [github](https://github.com/icflorescu/aspa-ex
 
 ## Why?
 There are certainly a number of other similar tools available in the Node.js ecosystem. However, in my opinion:
-* some of them are a bit too complex and complicated (and thus 'overkill' for small projects);
-* some will perform the necessary asset file processing on application start-up, which isn't always the best approach when you're deploying in the cloud;
-* related to the point above, if you're using Stylus or you're only writing the **client-side** app in CoffeeScript/IcedCoffeeScript, you should still be able to keep a lean deployment size and you shouldn't **have** to make your server-side app dependant on those packages;
-* not all of them feature concatenation, optimization, compression and fingerprinting for scripts, stylesheets and other deployable assets (such as web fonts);
-* not all of them are processing the CSS files to correctly rewrite the URLs pointing to other fingerprinted assets.
+
+- some of them are a bit too complex and complicated (and thus 'overkill' for small projects);
+- some will perform the necessary asset file processing on application start-up, which isn't always the best approach when you're deploying in the cloud;
+- related to the point above, if you're using Stylus or you're only writing the **client-side** app in CoffeeScript/IcedCoffeeScript, you should still be able to keep a lean deployment size and you shouldn't **have** to make your server-side app dependant on those packages;
+- not all of them feature concatenation, optimization, compression and fingerprinting for scripts, stylesheets and other deployable assets (such as web fonts);
+- not all of them are processing the CSS files to correctly rewrite the URLs pointing to other fingerprinted assets.
 
 While certainly not aiming to be a silver bullet, ASPA tries to address the above issues by providing a little a command-line utility which you can run during development or before deployment. The configuration is centralized in a single YML map file (aspa.yml) residing in the root of your folder.
 
 ## Features
 
-* Map-file based (asset map uses a subset of [YAML](http://en.wikipedia.org/wiki/YAML) syntax);
-* Accepts .css and .styl input for stylesheets;
-* Accepts .js, .coffee and .iced ([IcedCoffeeScript](http://maxtaco.github.com/coffee-script/)) input for scripts;
-* Concatenates multiple script/style source files per output file;
-* [Fingerprints](http://guides.rubyonrails.org/asset_pipeline.html#what-is-fingerprinting-and-why-should-i-care) and gzips assets in production mode.
+- Map-file based (asset map uses a subset of [YAML](http://en.wikipedia.org/wiki/YAML) syntax);
+- Accepts .css and .styl input for stylesheets;
+- Accepts .js, .coffee and .iced ([IcedCoffeeScript](http://maxtaco.github.com/coffee-script/)) input for scripts;
+- Concatenates multiple script/style source files per output file;
+- [Fingerprints](http://guides.rubyonrails.org/asset_pipeline.html#what-is-fingerprinting-and-why-should-i-care) and gzips assets in production mode.
 
 ## Installation
 
