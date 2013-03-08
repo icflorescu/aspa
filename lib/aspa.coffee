@@ -110,8 +110,10 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
   if err then callback err; return
 
   contents = ''
+  sourceCount = 0
 
   for own source, options of sources when options?.skip isnt on
+    sourceCount += 1
 
     # Add a comment-separator before each source
     contents += '\n' unless contents is ''
@@ -166,7 +168,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
 
   # Write contents
   await fs.writeFile destination, contents, defer err
-  console.log "Input source files #{operation} to #{destination}." unless err
+  console.log "#{sourceCount} source file(s) #{operation} to #{destination}." unless err
   callback err
 
 ### =============================================================================================== Exported methods ###
@@ -241,7 +243,6 @@ exports.watch = (options, callback) ->
     watcher = watchr.watch
       path: cwd
       listener: (e, file) ->
-        console.log e, file
 
         # Restart work when input asset map file is changed
         if file is mapFile and e is 'update'
@@ -250,6 +251,7 @@ exports.watch = (options, callback) ->
           work()
           return
 
+        # Copy or compile corresponding targets when a source file changes
         if e in ['create', 'update']
           for own asset, assetOptions of map
             if path.extname(asset) in ['.js', '.css']
