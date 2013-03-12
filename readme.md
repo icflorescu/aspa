@@ -19,8 +19,8 @@ While certainly not aiming to be a silver bullet, ASPA tries to address the abov
 ## Features
 
 - Map-file based (asset map uses a subset of [YAML](http://en.wikipedia.org/wiki/YAML) syntax);
-- Accepts .css and .styl input for stylesheets;
-- Accepts .js, .coffee and .iced ([IcedCoffeeScript](http://maxtaco.github.com/coffee-script/)) input for scripts;
+- Accepts .css, .styl and .less input for stylesheets;
+- Accepts .js, .coffee, .iced ([IcedCoffeeScript](http://maxtaco.github.com/coffee-script/)), .co ([Coco](https://github.com/satyr/coco#readme)) and .ls ([LiveScript](http://livescript.net/)) input for scripts;
 - Concatenates multiple script/style source files per output file;
 - [Fingerprints](http://guides.rubyonrails.org/asset_pipeline.html#what-is-fingerprinting-and-why-should-i-care) and gzips assets in production mode.
 
@@ -138,7 +138,7 @@ III. **Run the aspa utility in the assets root folder** to build and deploy.
 
 ## Todo
 
-Support for ~~[LESS](http://lesscss.org/)~~ (done), ~~[Coco](https://github.com/satyr/coco)~~ (done), ~~[LiveScript](http://livescript.net/)~~ (done) and other languages will be added gradually.  
+Support for ~~[LESS](http://lesscss.org/)~~, ~~[Coco](https://github.com/satyr/coco)~~, ~~[LiveScript](http://livescript.net/)~~ and other languages (?) will be added gradually.  
 Other ideas are welcomed.
 
 ## Notes
