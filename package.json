@@ -4,9 +4,9 @@
 	"version": "0.3.0",
 	"author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
 	"keywords": [
-		"jade", "css", "stylesheets",
-		"coffee-script", "iced-coffee-script", "scripts",
-		"assets", "compressor", "optimizer", "packager", "builder"
+		"jade", "less", "css", "stylesheets",
+		"coffee-script", "coco", "livescript", "iced-coffee-script", "scripts",
+		"assets", "compiler", "compressor", "optimizer", "packager", "builder"
 	],
 	"repository": "git://github.com/icflorescu/aspa",
 	"engines": {
