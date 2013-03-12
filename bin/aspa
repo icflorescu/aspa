@@ -1,37 +1,40 @@
 #!/usr/bin/env node
 
 var program = require('commander'),
-	path    = require('path'),
-	aspa    = require('../index'),
+    path    = require('path'),
+    clc     = require('cli-color'),
+    aspa    = require('../index'),
 
-	validActions = ['cleanup', 'build', 'watch'],
-	action,
+    validActions = ['cleanup', 'build', 'watch'],
+    action,
 
-	actionCallback = function(err) {
-		console.log(err ? err : 'Done.');
-	};
+    actionCallback = function(err) {
+        if (err) {
+            console.log(clc.red(err));
+        }
+    };
 
 program
-	.version('0.1.9')
-	.usage('-r <root> [-p <public>] [-m <mode>] [cleanup|build|watch]')
-	.option('-r, --root <root>',     'Root folder to write output map to')
-	.option('-p, --public <public>', 'Public web folder, defaults to <root>/public')
-	.option('-m, --mode <mode>',     'Build mode, [development] or production', 'development')
-	.parse(process.argv);
+    .version('0.2.1')
+    .usage('-r <root> [-p <public>] [-m <mode>] [cleanup|build|watch]')
+    .option('-r, --root <root>',     'Root folder to write output map to')
+    .option('-p, --public <public>', 'Public web folder, defaults to <root>/public')
+    .option('-m, --mode <mode>',     'Build mode, [development] or production', 'development')
+    .parse(process.argv);
 
 if (!program.root) {
-	console.log('Please specify root folder.');
-	console.log('Check aspa --help for more info.');
+    console.log('Please specify root folder.');
+    console.log('Check aspa --help for more info.');
 } else {
-	program.public = program.public || path.join(program.root, 'public');
+    program.public = program.public || path.join(program.root, 'public');
 
-	action = program.args.length ? program.args[0] : 'build';
+    action = program.args.length ? program.args[0] : 'build';
 
-	if (validActions.indexOf(action) == -1) {
-		console.log('Valid actions are: cleanup, build or watch.');
-		console.log('Check aspa --help for more info.');
-	} else {
-		aspa[action](program, actionCallback);
-	}
+    if (validActions.indexOf(action) == -1) {
+        console.log('Valid actions are: cleanup, build or watch.');
+        console.log('Check aspa --help for more info.');
+    } else {
+        aspa[action](program, actionCallback);
+    }
 }
 

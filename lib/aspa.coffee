@@ -1,4 +1,5 @@
 fs     = require 'fs'
+clc    = require 'cli-color'
 yaml   = require 'js-yaml'
 path   = require 'path'
 rimraf = require 'rimraf'
@@ -46,25 +47,25 @@ copy = (asset, from, to, outputMap, callback) ->
   # Delete old destination file if necessary
   await fs.exists destination, defer found
   await fs.unlink destination, defer err if found
-  if err then callback err; return
+  return callback err if err
 
   # Create destination path
   await mkdirp path.dirname(destination), defer err
-  if err then callback err; return
+  return callback err if err
 
   if path.extname(destination) is '.gz'
     # Compress asset
     await fs.readFile source, 'utf8', defer err, contents
-    if err then callback err; return
+    return callback err if err
     await zlib.gzip contents, defer err, contents
-    if err then callback err; return
+    return callback err if err
     await fs.writeFile destination, contents, defer err
     operation = 'compressed'
   else
     # Just copy asset
     await fs.link source, destination, defer err
     operation = 'copied'
-  console.log "#{source} #{operation} to #{destination}." unless err
+  console.log clc.cyan "#{source} #{operation} to #{destination}." unless err
   callback err
 
 getSourceComment = (source) ->
@@ -103,11 +104,11 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
   # Delete old destination file if necessary
   await fs.exists destination, defer found
   await fs.unlink destination, defer err if found
-  if err then callback err; return
+  return callback err if err
 
   # Create destination path
   await mkdirp path.dirname(destination), defer err
-  if err then callback err; return
+  return callback err if err
 
   contents = ''
   sourceCount = 0
@@ -121,7 +122,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
 
     # Read source
     await fs.readFile source, 'utf8', defer err, content
-    if err then callback err; return
+    return callback err if err
     sourceExt = path.extname source
 
     # Perform compilation, depending on source extension
@@ -133,7 +134,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
           .set('debug', yes)
         compiler.use(nib()).import('nib') if options?.nib
         await compiler.render defer err, content
-        if err then callback err; return
+        return callback err if err
       when '.iced', '.coffee'
         compiler = if sourceExt is '.iced' then ics else coffee
         try
@@ -146,7 +147,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
           content = jade.compile content, { client: yes, compileDebug: no }
           content = "JST['#{templateName}'] = #{content};\n"
         catch err
-          callback err; return
+          return callback err
       else # no compilation needed, so nothing to do
 
     # Adjust URLs for assets reffered within CSS files
@@ -161,14 +162,14 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
     else
       contents = csso.justDoIt contents
     await zlib.gzip contents, defer err, contents
-    if err then callback err; return
+    return callback err if err
     operation = 'compiled and compressed'
   else
     operation = 'compiled'
 
   # Write contents
   await fs.writeFile destination, contents, defer err
-  console.log "#{sourceCount} source file(s) #{operation} to #{destination}." unless err
+  console.log clc.cyan "#{sourceCount} source file(s) #{operation} to #{destination}." unless err
   callback err
 
 ### =============================================================================================== Exported methods ###
@@ -180,14 +181,14 @@ exports.cleanup = cleanup = (options, callback) ->
   # Delete old output map if necessary
   await fs.exists outputMapFile, defer found
   await fs.unlink outputMapFile, defer err if found
-  if err then callback err; return
+  return callback err if err
 
   # Recreate public folder
   await rimraf options.public, defer err
-  if err then callback err; return
+  return callback err if err
   await fs.mkdir options.public, defer err
 
-  console.log 'Cleanup finished.' unless err
+  console.log clc.green 'Cleanup finished.' unless err
   callback err
 
 # Build assets in current folder for development or production
@@ -195,7 +196,7 @@ exports.build = build = (options, callback) ->
 
   # Perform a cleanup first
   await cleanup options, defer err
-  if err then callback err; return
+  return callback err if err
 
   timestamp = (new Date).getTime().toString() if options.mode is 'production'
 
@@ -210,20 +211,22 @@ exports.build = build = (options, callback) ->
         compile asset, assetOptions.from, options.public, outputMap, stylesheetAssetsMap, defer err
       else
         copy asset, assetOptions?.from, options.public, outputMap, defer err
-    if err then callback err; return
+    return callback err if err
 
   # Write output map if mode is production
   if options.mode is 'production'
     await fs.writeFile path.join(options.root, 'aspa.json'), JSON.stringify(outputMap, null, '\t'), defer err
 
-  console.log 'Build finished.' unless err
+  console.log clc.green 'Build finished.' unless err
   callback err
 
 # Continuously watch the current folder, building assets as source files change
 exports.watch = (options, callback) ->
   unless options.mode is 'development'
-    callback('Watch only works for development mode.')
+    callback 'Watch only works for development mode.'
     return
+
+  watcher = null
 
   # Wrapper method so we can restart on map file change
   work = ->
@@ -239,17 +242,18 @@ exports.watch = (options, callback) ->
     outputMap = buildOutputMap map
     stylesheetAssetsMap = buildStylesheetAssetsMap map, outputMap
 
-    console.log 'Watching folder...'
+    console.log clc.yellow 'Watching folder (press Ctrl+C to exit)...'
+
+    watcher?.close()
     watcher = watchr.watch
       preferredMethods: ['watchFile', 'watch']
-      interval: 1000
+      interval: 500
       path: cwd
       listener: (e, file) ->
 
         # Restart work when input asset map file is changed
         if file is mapFile and e is 'update'
-          console.log 'Source map file changed, restarting...'
-          watcher.close()
+          console.log clc.yellow 'Source map file changed, restarting...'
           work()
           return
 
