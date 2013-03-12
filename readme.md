@@ -138,7 +138,7 @@ III. **Run the aspa utility in the assets root folder** to build and deploy.
 
 ## Todo
 
-Support for [LESS](http://lesscss.org/), [Coco](https://github.com/satyr/coco), [LiveScript](http://livescript.net/) and other languages will be added gradually.  
+Support for ~~[LESS](http://lesscss.org/)~~ (done), ~~[Coco](https://github.com/satyr/coco)~~ (done), ~~[LiveScript](http://livescript.net/)~~ (done) and other languages will be added gradually.  
 Other ideas are welcomed.
 
 ## Notes

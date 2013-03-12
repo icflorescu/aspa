@@ -1,7 +1,7 @@
 {
 	"name": "aspa",
 	"description": "An opinionated, lightweight and simple to use web asset packager.",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
 	"keywords": [
 		"jade", "css", "stylesheets",
@@ -24,8 +24,11 @@
 		"watchr": "*",
 		"coffee-script": "*",
 		"iced-coffee-script": "*",
+		"coco": "*",
+		"LiveScript": "*",
 		"stylus": "*",
 		"nib": "*",
+		"less": "*",
 		"jade": "*",
 		"uglify-js": "*",
 		"csso": "*"

@@ -7,14 +7,20 @@ mkdirp = require 'mkdirp'
 zlib   = require 'zlib'
 stylus = require 'stylus'
 nib    = require 'nib'
-coffee = require 'coffee-script'
-ics    = require 'iced-coffee-script'
+less   = require 'less'
 jade   = require 'jade'
 uglify = require 'uglify-js'
 csso   = require 'csso'
 watchr = require 'watchr'
 
+jsCompilers =
+  '.coffee': require 'coffee-script'
+  '.iced':   require 'iced-coffee-script'
+  '.co':     require 'coco'
+  '.ls':     require 'LiveScript'
+
 cwd = process.cwd()
+
 
 ### ================================================================================================ Utility methods ###
 
@@ -127,6 +133,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
 
     # Perform compilation, depending on source extension
     switch sourceExt
+
       when '.styl'
         compiler = stylus(content)
           .set('filename', source)
@@ -135,12 +142,26 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
         compiler.use(nib()).import('nib') if options?.nib
         await compiler.render defer err, content
         return callback err if err
-      when '.iced', '.coffee'
-        compiler = if sourceExt is '.iced' then ics else coffee
+
+      when '.less'
+        parser = new less.Parser
+          filename: source
+          paths: [ path.dirname(source) ]
+        await parser.parse content, defer err, lessTree
+        return callback err if err
+        try
+          content = lessTree.toCSS()
+        catch err
+          return callback err
+
+      when '.coffee', '.iced', '.co', '.ls'
+        # All JavaScript compilers are basically exposing the same API, so we can abstract a bit here
+        compiler = jsCompilers[sourceExt]
         try
           content = compiler.compile content, { bare: options?.bare }
         catch err
-          callback err; return
+          return callback err
+
       when '.jade'
         templateName = path.join path.dirname(source), path.basename(source, '.jade')
         try
@@ -148,6 +169,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
           content = "JST['#{templateName}'] = #{content};\n"
         catch err
           return callback err
+
       else # no compilation needed, so nothing to do
 
     # Adjust URLs for assets reffered within CSS files
