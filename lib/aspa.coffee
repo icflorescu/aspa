@@ -241,6 +241,8 @@ exports.watch = (options, callback) ->
 
     console.log 'Watching folder...'
     watcher = watchr.watch
+      preferredMethods: ['watchFile', 'watch']
+      interval: 1000
       path: cwd
       listener: (e, file) ->
 
