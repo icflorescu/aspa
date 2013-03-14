@@ -15,7 +15,7 @@ var program = require('commander'),
     };
 
 program
-    .version('0.3.0')
+    .version('0.3.2')
     .usage('-r <root> [-p <public>] [-m <mode>] [cleanup|build|watch]')
     .option('-r, --root <root>',     'Root folder to write output map to')
     .option('-p, --public <public>', 'Public web folder, defaults to <root>/public')
@@ -34,6 +34,7 @@ if (!program.root) {
         console.log('Valid actions are: cleanup, build or watch.');
         console.log('Check aspa --help for more info.');
     } else {
+        // Perform the requested action
         aspa[action](program, actionCallback);
     }
 }
