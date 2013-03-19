@@ -55,6 +55,7 @@ II. **Create aspa.yml map file** in the root of the asset folder (`/work/client`
         lib/underscore.js               : ~
         lib/backbone.js                 : ~
         lib/select2.js                  : ~
+        lib/iced-runtime.js             : ~
         lib/jade-runtime.js             : ~
         scripts/jst-namespace.coffee    : { bare: true }
         templates/item.jade             : ~
@@ -81,6 +82,8 @@ II. **Create aspa.yml map file** in the root of the asset folder (`/work/client`
    * .jade templates are transformed to JavaScript templating functions in JST namespace (i.e. `templates/item.jade` compiles to `JST['templates/item']` function);
    * `nib: true` refers to [this](http://visionmedia.github.com/nib/);
    * `skip: true` means don't include that file in the compiled output, just watch it for changes (in the example above, item.styl is dynamically imported into main.styl, so you don't want to include it again but you want to trigger a rebuild when its content changes;
+   * if you use .jade templates, don't forget to include [this runtime](https://github.com/visionmedia/jade/blob/master/runtime.js) before;
+   * if you use .iced (IcedCoffeeScript) scripts, don't forget to include [this runtime](https://gist.github.com/icflorescu/5198453) before; the runtime can also be generated with `iced -I window -F -p -e '' > iced-runtime.js`;
    * `fonts/fontello.eot: { from: lib/fontello/font }` means copy `/client/lib/fontello/font/fontello.eot` to `/server/public/fonts/fontello.eot`;
    * .js and .css files are gzipped automatically in production mode, but other "compressible" assets must be explicitely marked with a `compress: true` option;
    * `raw: true` means don't fingerprint this file in production.
