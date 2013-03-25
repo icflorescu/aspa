@@ -250,7 +250,10 @@ exports.build = build = (options, callback) ->
 
   timestamp = (new Date).getTime().toString() if options.mode is 'production'
 
-  map = require path.join(cwd, 'aspa.yml')
+  mapFile = path.join(cwd, 'aspa.yml')
+  await fs.readFile mapFile, 'utf8', defer err, mapFileContents
+  callback err if err
+  map = yaml.load mapFileContents
   outputMap = buildOutputMap map, timestamp
   stylesheetAssetsMap = buildStylesheetAssetsMap map, outputMap
 
