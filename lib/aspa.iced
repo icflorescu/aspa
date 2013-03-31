@@ -141,11 +141,8 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
   return callback err if err
 
   contents = ''
-  sourceCount = 0
 
   for own source, options of sources when options?.skip isnt on
-    sourceCount += 1
-
     # Add a comment-separator before each source
     contents += '\n' unless contents is ''
     contents += getSourceComment(source)
@@ -216,7 +213,7 @@ compile = (asset, sources, to, outputMap, stylesheetAssetsMap, callback) ->
 
   # Write contents
   await fs.writeFile destination, contents, defer err
-  console.log clc.cyan "#{sourceCount} source file(s) #{operation} to #{destination}." unless err
+  console.log clc.cyan "#{Object.keys(sources).length} source file(s) #{operation} to #{destination}." unless err
   callback err
 
 
@@ -296,7 +293,15 @@ exports.watch = (options, callback) ->
     outputMap = buildOutputMap map
     stylesheetAssetsMap = buildStylesheetAssetsMap map, outputMap
 
-    console.log clc.yellow 'Watching folder (press Ctrl+C to exit)...'
+    # Count map file assets
+    assetCount = 0
+    for own asset, assetOptions of map
+      if path.extname(asset) in ['.js', '.css']
+        assetCount += Object.keys(assetOptions.from).length
+      else
+        assetCount += 1
+
+    console.log clc.yellow "Watching #{assetCount} files in current folder (press Ctrl+C to exit)..."
 
     # Close any existent file watches (in case of restart)
     watcher?.close()
