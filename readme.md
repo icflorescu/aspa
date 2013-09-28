@@ -149,7 +149,7 @@ If you find a bug or have an idea about a new feature, please don't be shy, just
 
 ## Endorsing the author
 
-If you find this module useful, please endorse me on Coderwall :-)
+If you find this module useful, please endorse me on Coderwall using the link below! Thanks :-)
 
 [![endorse](https://api.coderwall.com/icflorescu/endorsecount.png)](https://coderwall.com/icflorescu)
 
