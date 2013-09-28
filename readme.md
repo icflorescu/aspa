@@ -1,5 +1,5 @@
 # ASPA
-ASPA is a simple opinionated web application asset packager for Node.js.  
+ASPA is a simple opinionated web application asset packager for Node.js.
 
 Make sure to check ASPA-Express ( [github](https://github.com/icflorescu/aspa-express) | [npm](https://npmjs.org/package/aspa-express) ) for using packaged assets with [Express](http://expressjs.com).
 
@@ -139,14 +139,19 @@ III. **Run the aspa utility in the assets root folder** to build and deploy.
         /work/server/public/favicon.ico
         /work/server/aspa.json
 
-## Todo
-
-Support for ~~[LESS](http://lesscss.org/)~~, ~~[Coco](https://github.com/satyr/coco)~~, ~~[LiveScript](http://livescript.net/)~~ and other languages (?) will be added gradually.  
-Other ideas are welcomed.
-
 ## Notes
 
 ASPA was written almost entirely in [IcedCoffeeScript](http://maxtaco.github.com/coffee-script/), a superset of CoffeeScript adding `await` and `defer` keywords to simply and powerfully streamline asynchronous control flow.
+
+## Contributing
+
+If you find a bug or have an idea about a new feature, please don't be shy, just issue a pull request.
+
+## Endorsing the author
+
+If you find this module useful, please endorse me on Coderwall :-)
+
+[![endorse](https://api.coderwall.com/icflorescu/endorsecount.png)](https://coderwall.com/icflorescu)
 
 ## License
 
