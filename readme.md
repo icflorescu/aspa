@@ -1,6 +1,11 @@
 # ASPA
 ASPA is a simple opinionated web application asset packager for Node.js.
 
+## Notice
+If you like using this package, please consider switching to [ASPAX](https://github.com/icflorescu/aspax) for cleaner YML syntax, a smart plugin system to handle various source file types, and automatic watching of included files (i.e. Stylus `@import`s). Have a look at [aspax.github.io](aspax.github.io) for more information.
+
+---
+
 Make sure to check ASPA-Express ( [github](https://github.com/icflorescu/aspa-express) | [npm](https://npmjs.org/package/aspa-express) ) for using packaged assets with [Express](http://expressjs.com).
 
 ![ASPA](https://raw.github.com/icflorescu/aspa/master/aspa.png)
