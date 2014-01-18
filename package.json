@@ -1,7 +1,7 @@
 {
   "name": "aspa",
   "description": "An opinionated, lightweight and simple to use web asset packager.",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
   "keywords": [
     "jade",
@@ -20,7 +20,10 @@
     "packager",
     "builder"
   ],
-  "repository": "git://github.com/icflorescu/aspa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/icflorescu/aspa.git"
+  },
   "engines": {
     "node": ">=0.8"
   },
