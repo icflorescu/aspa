@@ -4,7 +4,7 @@
 ASPA is a simple opinionated web application asset packager for Node.js.
 
 ## End of Life Notice - January 2014
-If you like using this package, **please consider switching to [ASPAX](https://github.com/icflorescu/aspax)** for cleaner YML syntax, a smart plugin system to handle various source file types, and automatic watching of included files (i.e. Stylus `@import`s). Have a look at [aspax.github.io](aspax.github.io) for more information.
+If you like using this package, **please consider switching to [ASPAX](https://github.com/icflorescu/aspax)** for cleaner YML syntax, a smart plugin system to handle various source file types, and automatic watching of included files (i.e. Stylus `@import`s). Have a look at [aspax.github.io](http://aspax.github.io) for more information.
 
 ASPA will remain in the npm repository, but it will no longer be maintained/updated.
 

@@ -1,7 +1,7 @@
 {
   "name": "aspa",
   "description": "An opinionated, lightweight and simple to use web asset packager.",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
   "keywords": [
     "jade",
